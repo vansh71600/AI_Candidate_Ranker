@@ -1,0 +1,8 @@
+# Pinned to a mutually compatible set.
+# torch 2.2.2 ships its own libtorchcodec-free build and is compatible
+# with sentence-transformers 3.x on Python 3.10-3.12 (CPU-only).
+torch==2.2.2
+sentence-transformers==3.0.1
+scikit-learn==1.4.2
+numpy==1.26.4
+pandas==2.2.2
