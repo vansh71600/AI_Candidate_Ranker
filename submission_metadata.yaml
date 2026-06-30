@@ -1,0 +1,60 @@
+team_name: "Builder"
+
+primary_contact:
+  name: "Vansh Sharma"
+  email: "s.vansh@iitg.ac.in"
+  phone: "+91-7889943081"
+
+team_members:
+  - name: "Vansh Sharma"
+    email: "s.vansh@iitg.ac.in"
+    role: "ML Engineer"
+
+github_repo: "https://github.com/vansh71600/AI_Candidate_Ranker"
+
+sandbox_link: "https://aicandidateranker-tt5xkj5crbym8rp2p6ff9h.streamlit.app/"
+
+reproduce_command: "python main.py --candidates ./candidates.jsonl --out ./builder.csv"
+
+compute:
+  platform: "Kaggle Notebook (CPU)"
+  cpu_cores: 4
+  ram_gb: 16
+  python_version: "3.12"
+  os: "Ubuntu 22.04 LTS"
+  uses_gpu_for_inference: false
+  has_network_during_ranking: false
+  pre_computation_required: false
+  pre_computation_time_minutes: 0
+
+ai_tools_used:
+  - "Claude"
+
+ai_usage_summary: |
+  The pipeline architecture, filtering logic, scoring design, JD enrichment
+  strategy, and the choice of embedding/cosine-similarity approach were
+  designed by me. Claude was used to help write and clean up code, debug
+  issues, and assist with deploying the Streamlit sandbox app. No candidate
+  data was fed to any LLM API. All ranking is done locally using
+  sentence-transformers running on CPU with no external API calls during
+  the ranking step.
+
+methodology_summary: |
+  Multi-signal candidate ranking pipeline with no LLM API calls. Reads
+  candidates.jsonl, applies hard filters (experience >= 3 yrs, Python required,
+  ML skill required, active within 365 days, irrelevant titles removed via two
+  separate filters for general roles and CV-specific roles, honeypot detection).
+  Career text from the rolling last 6 years plus proficiency-weighted skill terms
+  are embedded using paraphrase-MiniLM-L3-v2 against an enriched JD vector.
+  Seven scoring components combined: semantic similarity (35%), skill overlap
+  with proficiency weighting (25%), behavioral signals (18%), relevant
+  experience (10%), company type from industry labels (4%), education tier (4%),
+  verified assessment scores (4%). Scores rounded to 4dp, ties broken by
+  candidate_id ascending. Top 100 exported with per-candidate reasoning.
+
+declarations:
+  read_submission_spec: true
+  code_is_original_work: true
+  no_collusion: true
+  honeypot_check_done: true
+  reproduction_tested: true
