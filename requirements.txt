@@ -1,0 +1,5 @@
+sentence-transformers==2.7.0
+scikit-learn==1.4.2
+numpy==1.26.4
+pandas==2.2.2
+streamlit==1.38.0
